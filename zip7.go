@@ -31,8 +31,6 @@ const (
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-const _BINARY = "7za"
-
 const (
 	_COMPRESSION_MIN     = 0
 	_COMPRESSION_MAX     = 9
@@ -248,7 +246,8 @@ func (p Props) Validate(checkFile bool) error {
 
 // ToArgs converts properties to p7zip arguments
 func (p Props) ToArgs(command string) []string {
-	var args = []string{p.File, "", "-y", "-bd"}
+	// var args = []string{p.File, "", "-y", "-bd"}
+	var args = []string{p.File, "-y", "-bd"}
 
 	if command == _COMMAND_ADD {
 		var compression int

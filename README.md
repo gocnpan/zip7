@@ -42,7 +42,11 @@ go get -u github.com/essentialkaos/zip7
 | Linux    | :heavy_check_mark: |
 | Mac OS X | :heavy_check_mark: |
 | FreeBSD  | :heavy_check_mark: |
-| Windows  | :x:                |
+| Windows  | :heavy_check_mark: |
+
+Running this project on Windows pre-requisite 7zip and 7zip standalone console version from [7zip](https://www.7-zip.org/download.html) 
+
+Add Windows `%PATH%` to `C:\Program Files\7-Zip` or where the program is.
 
 ### Build Status
 

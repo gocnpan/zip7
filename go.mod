@@ -1,4 +1,4 @@
-module github.com/essentialkaos/zip7
+module github.com/gocnpan/zip7
 
 go 1.17
 
