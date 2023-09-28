@@ -20,13 +20,13 @@
 Make sure you have a working Go 1.17+ workspace (_[instructions](https://golang.org/doc/install)_), then:
 
 ```
-go get github.com/essentialkaos/zip7
+go get github.com/gocnpan/zip7
 ```
 
 If you want to update `zip7` to latest stable release, do:
 
 ```
-go get -u github.com/essentialkaos/zip7
+go get -u github.com/gocnpan/zip7
 ```
 
 ### Compatibility and OS support
