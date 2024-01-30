@@ -45,6 +45,8 @@ const (
 	_COMMAND_TEST      = "t"
 	_COMMAND_UPDATE    = "u"
 	_COMMAND_EXTRACT   = "x"
+
+	_COMMAND_RENAME = "rn" // 重命名
 )
 
 const _TEST_OK_VALUE = "Everything is Ok"
@@ -219,6 +221,30 @@ func Delete(props Props, files ...string) (string, error) {
 	}
 
 	return execBinary(_COMMAND_DELETE, props, files)
+}
+
+// Rename renames old name to new name
+// @params renames map[old]new
+func Rename(props Props, renames map[string]string) (string, error) {
+	if renames == nil {
+		return "", errors.New("You should define files to rename")
+	}
+
+	files := make([]string, 0, len(renames)*2)
+	for old, new := range renames {
+		if old == "" || new == "" {
+			return "", errors.New("File name could not be empty")
+		}
+		files = append(files, old, new)
+	}
+
+	err := props.Validate(true)
+
+	if err != nil {
+		return "", err
+	}
+
+	return execBinary(_COMMAND_RENAME, props, files)
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //

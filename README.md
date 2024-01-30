@@ -15,6 +15,14 @@
 
 `zip7` package provides methods for working with 7z archives (`p7zip` wrapper).
 
+### 新增功能
+重命名: rn (Rename) command
+- 参考: https://documentation.help/7-Zip-18.0/rename.htm
+- `rn <archive_name> <src_file_1> <dest_file_1> [ <src_file_2> <dest_file_2> ... ]`
+- `7z rn a.7z old.txt new.txt 2.txt folder\2new.txt`
+
+可以在追加文件后, 通过重命名的方式将文件追加到指定位置
+
 ### Installation
 
 Make sure you have a working Go 1.17+ workspace (_[instructions](https://golang.org/doc/install)_), then:
