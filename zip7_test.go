@@ -8,6 +8,7 @@ package zip7
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 import (
+	"log"
 	"testing"
 
 	"github.com/essentialkaos/ek/v12/fsutil"
@@ -596,4 +597,22 @@ func (s *Z7Suite) TestValidationErrors(c *check.C) {
 	c.Assert(Props{IncludeFile: "unknown"}.Validate(false), check.NotNil)
 	c.Assert(Props{ExcludeFile: "unknown"}.Validate(false), check.NotNil)
 	c.Assert(Props{OutputDir: "unknown"}.Validate(false), check.NotNil)
+}
+
+// ////////////////////////////////////////////////////////////////////////////////// //
+
+func (s *Z7Suite) TestRename(c *check.C) {
+	_, err := Add(Props{
+		File: "./tt.7z",
+	}, "./testdata", "./zip7.go")
+	c.Assert(err, check.IsNil)
+
+	out, err := Rename(Props{
+		File: "./tt.7z",
+	}, map[string]string{
+		"zip7.go": "testdata/test/zip.go",
+	})
+
+	c.Assert(err, check.IsNil)
+	log.Printf("out: %s", out)
 }
