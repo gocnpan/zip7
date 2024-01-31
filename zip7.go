@@ -65,6 +65,7 @@ type Props struct {
 	Password    string // Password
 	WorkingDir  string // Working dir
 	Compression int    // Compression level (0-9)
+	NoCompress  bool   // Do not compression
 	Threads     int    // Number of CPU threads
 	Recursive   bool   // Recurse subdirectories
 	Delete      bool   // Delete files after compression
@@ -278,7 +279,7 @@ func (p Props) ToArgs(command string) []string {
 	if command == _COMMAND_ADD {
 		var compression int
 
-		if p.Compression == 0 {
+		if p.Compression == 0 && !p.NoCompress {
 			compression = _COMPRESSION_DEFAULT
 		} else {
 			compression = between(p.Compression, _COMPRESSION_MIN, _COMPRESSION_MAX)
