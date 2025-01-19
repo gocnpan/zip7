@@ -1,15 +1,15 @@
 module github.com/gocnpan/zip7
 
-go 1.17
+go 1.22.8
 
 require (
-	github.com/essentialkaos/check v1.3.0
-	github.com/essentialkaos/ek/v12 v12.44.1
+	github.com/essentialkaos/check v1.4.1
+	github.com/essentialkaos/ek/v13 v13.15.6
 )
 
 require (
-	github.com/kr/pretty v0.3.0 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/rogpeppe/go-internal v1.8.1 // indirect
-	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
+	github.com/rogpeppe/go-internal v1.13.1 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 )

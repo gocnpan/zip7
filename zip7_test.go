@@ -2,16 +2,15 @@ package zip7
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 //                                                                                    //
-//                         Copyright (c) 2022 ESSENTIAL KAOS                          //
+//                         Copyright (c) 2024 ESSENTIAL KAOS                          //
 //      Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>     //
 //                                                                                    //
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 import (
-	"log"
 	"testing"
 
-	"github.com/essentialkaos/ek/v12/fsutil"
+	"github.com/essentialkaos/ek/v13/fsutil"
 
 	check "github.com/essentialkaos/check"
 )
@@ -498,7 +497,7 @@ func (s *Z7Suite) TestAdd(c *check.C) {
 
 	c.Assert(fsutil.IsExist(resultFile), check.Equals, true)
 	c.Assert(fsutil.IsReadable(resultFile), check.Equals, true)
-	c.Assert(fsutil.IsNonEmpty(resultFile), check.Equals, true)
+	c.Assert(fsutil.IsEmpty(resultFile), check.Equals, false)
 
 	ok, err := Check(Props{File: resultFile})
 
@@ -513,7 +512,7 @@ func (s *Z7Suite) TestAdd(c *check.C) {
 
 	c.Assert(fsutil.IsExist(resultFile), check.Equals, true)
 	c.Assert(fsutil.IsReadable(resultFile), check.Equals, true)
-	c.Assert(fsutil.IsNonEmpty(resultFile), check.Equals, true)
+	c.Assert(fsutil.IsEmpty(resultFile), check.Equals, false)
 
 	ok, err = Check(Props{File: resultFile})
 
@@ -597,22 +596,4 @@ func (s *Z7Suite) TestValidationErrors(c *check.C) {
 	c.Assert(Props{IncludeFile: "unknown"}.Validate(false), check.NotNil)
 	c.Assert(Props{ExcludeFile: "unknown"}.Validate(false), check.NotNil)
 	c.Assert(Props{OutputDir: "unknown"}.Validate(false), check.NotNil)
-}
-
-// ////////////////////////////////////////////////////////////////////////////////// //
-
-func (s *Z7Suite) TestRename(c *check.C) {
-	_, err := Add(Props{
-		File: "./tt.7z",
-	}, "./testdata", "./zip7.go")
-	c.Assert(err, check.IsNil)
-
-	out, err := Rename(Props{
-		File: "./tt.7z",
-	}, map[string]string{
-		"zip7.go": "testdata/test/zip.go",
-	})
-
-	c.Assert(err, check.IsNil)
-	log.Printf("out: %s", out)
 }

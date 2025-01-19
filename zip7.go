@@ -3,7 +3,7 @@ package zip7
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 //                                                                                    //
-//                         Copyright (c) 2022 ESSENTIAL KAOS                          //
+//                         Copyright (c) 2024 ESSENTIAL KAOS                          //
 //      Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>     //
 //                                                                                    //
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -112,7 +112,7 @@ func Add(props Props, files ...string) (string, error) {
 // AddList adds files to archive from slice
 func AddList(props Props, files []string) (string, error) {
 	if len(files) == 0 {
-		return "", errors.New("You should define files to compress")
+		return "", errors.New("you should define files to compress")
 	}
 
 	var cwd string
@@ -154,7 +154,7 @@ func AddList(props Props, files []string) (string, error) {
 	return out, err
 }
 
-// Extract extracts arhive
+// Extract extracts archive
 func Extract(props Props) (string, error) {
 	err := props.Validate(true)
 
@@ -202,7 +202,7 @@ func Check(props Props) (bool, error) {
 		if line == _TEST_OK_VALUE {
 			return true, nil
 		} else if line == _TEST_ERROR_VALUE {
-			return false, fmt.Errorf(outData[index+1])
+			return false, errors.New(outData[index+1])
 		}
 	}
 
@@ -252,19 +252,17 @@ func Rename(props Props, renames map[string]string) (string, error) {
 
 // Validate validates properties values
 func (p Props) Validate(checkFile bool) error {
-	if checkFile && !isExist(p.File) {
+	switch {
+	case checkFile && !isExist(p.File):
 		return fmt.Errorf("File %s does not exist", p.File)
-	}
 
-	if p.IncludeFile != "" && !isExist(p.IncludeFile) {
+	case p.IncludeFile != "" && !isExist(p.IncludeFile):
 		return fmt.Errorf("Included file %s does not exist", p.IncludeFile)
-	}
 
-	if p.ExcludeFile != "" && !isExist(p.ExcludeFile) {
+	case p.ExcludeFile != "" && !isExist(p.ExcludeFile):
 		return fmt.Errorf("Included file %s does not exist", p.ExcludeFile)
-	}
 
-	if p.OutputDir != "" && !isExist(p.OutputDir) {
+	case p.OutputDir != "" && !isExist(p.OutputDir):
 		return fmt.Errorf("Directory %s does not exist", p.OutputDir)
 	}
 
@@ -273,13 +271,13 @@ func (p Props) Validate(checkFile bool) error {
 
 // ToArgs converts properties to p7zip arguments
 func (p Props) ToArgs(command string) []string {
-	// var args = []string{p.File, "", "-y", "-bd"}
-	var args = []string{p.File, "-y", "-bd"}
+	var args = []string{p.File, "", "-y", "-bd"}
 
-	if command == _COMMAND_ADD {
+	switch command {
+	case _COMMAND_ADD:
 		var compression int
 
-		if p.Compression == 0 && !p.NoCompress {
+		if p.Compression == 0 {
 			compression = _COMPRESSION_DEFAULT
 		} else {
 			compression = between(p.Compression, _COMPRESSION_MIN, _COMPRESSION_MAX)
@@ -303,12 +301,11 @@ func (p Props) ToArgs(command string) []string {
 		if p.IncludeFile != "" {
 			args = append(args, "-ir@"+p.IncludeFile)
 		}
-
-	} else if command == _COMMAND_EXTRACT {
+	case _COMMAND_EXTRACT:
 		if p.OutputDir != "" {
 			args = append(args, "-o"+p.OutputDir)
 		}
-	} else if command == _COMMAND_LIST {
+	case _COMMAND_LIST:
 		args = append(args, "-slt")
 	}
 
@@ -345,10 +342,10 @@ func execBinary(command string, props Props, files []string) (string, error) {
 	out, err := cmd.Output()
 
 	if err != nil {
-		return string(out[:]), errors.New(string(out[:]))
+		return string(out), errors.New(string(out))
 	}
 
-	return string(out[:]), nil
+	return string(out), nil
 }
 
 // parseInfoString process raw info data
