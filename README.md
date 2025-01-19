@@ -23,6 +23,11 @@
 
 可以在追加文件后, 通过重命名的方式将文件追加到指定位置
 
+### 追加对安卓的支持
+需要将`p7zip`编译后将当前Android系统架构的7z可执行文件释放到当前程序同级目录下
+
+名称为`7z`
+
 ### Installation
 
 Make sure you have a working Go 1.17+ workspace (_[instructions](https://golang.org/doc/install)_), then:

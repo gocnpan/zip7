@@ -1,5 +1,6 @@
-//go:build !windows
-// +build !windows
+//go:build!(windows || android)
+//go:build !windows && !android
+// +build !windows,!android
 
 package zip7
 
