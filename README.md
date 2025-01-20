@@ -34,7 +34,7 @@
 
 首先是下载`p7zip`源码: https://jaist.dl.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2
 
-# 配置`android ndk`
+## 配置`android ndk`
 然后是配置`android ndk`, 这里需要用到`16.1.4479499`的版本，版本越高越可能出错
 - `ndk历史版本`:https://github.com/android/ndk/wiki/Unsupported-Downloads
 - `ndk下载地址`:https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
