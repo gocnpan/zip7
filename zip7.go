@@ -271,13 +271,14 @@ func (p Props) Validate(checkFile bool) error {
 
 // ToArgs converts properties to p7zip arguments
 func (p Props) ToArgs(command string) []string {
-	var args = []string{p.File, "", "-y", "-bd"}
+	// var args = []string{p.File, "", "-y", "-bd"} // 这里多了一个空白字符会导致 Windows 调用 7z.exe 失败
+	var args = []string{p.File, "-y", "-bd"}
 
 	switch command {
 	case _COMMAND_ADD:
 		var compression int
 
-		if p.Compression == 0 {
+		if p.Compression == 0 && !p.NoCompress {
 			compression = _COMPRESSION_DEFAULT
 		} else {
 			compression = between(p.Compression, _COMPRESSION_MIN, _COMPRESSION_MAX)
