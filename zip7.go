@@ -206,13 +206,13 @@ func Check(props Props) (bool, error) {
 		}
 	}
 
-	return false, errors.New("Can't parse 7zip output")
+	return false, errors.New("can't parse 7zip output")
 }
 
 // Delete removes files from archive
 func Delete(props Props, files ...string) (string, error) {
 	if len(files) == 0 {
-		return "", errors.New("You should define files to delete")
+		return "", errors.New("you should define files to delete")
 	}
 
 	err := props.Validate(true)
@@ -228,13 +228,13 @@ func Delete(props Props, files ...string) (string, error) {
 // @params renames map[old]new
 func Rename(props Props, renames map[string]string) (string, error) {
 	if renames == nil {
-		return "", errors.New("You should define files to rename")
+		return "", errors.New("you should define files to rename")
 	}
 
 	files := make([]string, 0, len(renames)*2)
 	for old, new := range renames {
 		if old == "" || new == "" {
-			return "", errors.New("File name could not be empty")
+			return "", errors.New("file name could not be empty")
 		}
 		files = append(files, old, new)
 	}
@@ -254,16 +254,16 @@ func Rename(props Props, renames map[string]string) (string, error) {
 func (p Props) Validate(checkFile bool) error {
 	switch {
 	case checkFile && !isExist(p.File):
-		return fmt.Errorf("File %s does not exist", p.File)
+		return fmt.Errorf("file %s does not exist", p.File)
 
 	case p.IncludeFile != "" && !isExist(p.IncludeFile):
-		return fmt.Errorf("Included file %s does not exist", p.IncludeFile)
+		return fmt.Errorf("included file %s does not exist", p.IncludeFile)
 
 	case p.ExcludeFile != "" && !isExist(p.ExcludeFile):
-		return fmt.Errorf("Included file %s does not exist", p.ExcludeFile)
+		return fmt.Errorf("included file %s does not exist", p.ExcludeFile)
 
 	case p.OutputDir != "" && !isExist(p.OutputDir):
-		return fmt.Errorf("Directory %s does not exist", p.OutputDir)
+		return fmt.Errorf("directory %s does not exist", p.OutputDir)
 	}
 
 	return nil
